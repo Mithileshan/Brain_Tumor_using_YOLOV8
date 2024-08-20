@@ -1,0 +1,6 @@
+train: C:\Users\aravi\PycharmProjects\brain_tumor\train
+val: C:\Users\aravi\PycharmProjects\brain_tumor\valid
+test: C:\Users\aravi\PycharmProjects\brain_tumor\test\images
+
+nc: 1
+names: ['tumor']
