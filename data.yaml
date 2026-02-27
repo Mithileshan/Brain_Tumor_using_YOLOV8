@@ -12,10 +12,10 @@
 #       ├── images/
 #       └── labels/
 
-path: ../data
-train: images/train
-val: images/val
-test: images/test
+path: data
+train: train/images
+val: valid/images
+test: test/images
 
 nc: 1
 names: ['tumor']

@@ -6,15 +6,16 @@
 
 ## 📋 Overview
 
-This project implements YOLOv8 (Nano) for real-time brain tumor detection. It provides:
-- ✅ Model training & fine-tuning
-- ✅ Single image & batch inference
-- ✅ Interactive GUI for predictions
+This project implements **YOLOv8 Nano** for brain tumor detection in MRI scans. It provides:
+- ✅ Single-class detection (tumor localization)
+- ✅ Real-time inference
+- ✅ Production-ready CLI & modules
 - ✅ Portable, reproducible setup
-- ✅ Pre-trained YOLOv8n weights
+- ✅ Pre-trained YOLOv8n weights (auto-downloaded)
 
-**Maturity:** Production-ready baseline (Phase 1+)  
-**Model:** YOLOv8 Nano (6.5 MB, real-time inference)  
+**Maturity:** Production-ready Phase 1 ✅  
+**Model:** YOLOv8 Nano (6.3 MB)  
+**Class:** 1 (tumor)  
 **Framework:** PyTorch + Ultralytics
 
 ---
@@ -92,38 +93,48 @@ results = model.predict('image.jpg')
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure (Phase 1)
 
 ```
 .
-├── data.yaml                 # Dataset config (relative paths)
-├── requirements.txt          # Dependencies
-├── README.md                 # This file
-├── .gitignore               # Git exclusions
+├── README.md                          # This file
+├── requirements.txt                   # Dependencies (pinned)
+├── Makefile                           # Commands: make install/train/eval
+├── data.yaml                          # Dataset config (relative paths ✓)
 │
-├── conv.py                   # Convolution modules (ultralytics)
-├── block.py                  # Custom blocks & attention
-├── head.py                   # Detection head
-├── train.py                  # Lightning-fast training (ultralytics port)
-├── preprocessing.py          # Image augmentation utilities
-├── gui.py                    # Tkinter GUI for inference
-│
-├── scripts/
-│   ├── train.py             # Training entry point (Phase 2)
-│   ├── infer.py             # CLI inference (Phase 2)
-│   └── eval.py              # Evaluation script (Phase 2)
-│
-├── models/
-│   ├── best.pt              # Best checkpoint (git-tracked metadata only)
-│   └── README.md            # Model card & training history
-│
-├── data/
+├── data/                              # Dataset (LOCAL ONLY, not in git)
 │   ├── train/
-│   ├── val/
+│   │   ├── images/
+│   │   └── labels/
+│   ├── valid/
+│   │   ├── images/
+│   │   └── labels/
 │   └── test/
+│       ├── images/
+│       └── labels/
 │
-└── results/
-    └── sample_predictions/  # Output predictions
+├── src/bt_yolo/                       # Core package (Phase 1)
+│   ├── __init__.py
+│   ├── config.py                      # Configuration dataclass
+│   ├── train.py                       # Training CLI (Ultralytics wrapper)
+│   ├── eval.py                        # Evaluation utilities (Phase 3)
+│   └── predict.py                     # Inference API
+│
+├── runs/                              # Experiment outputs (LOCAL ONLY)
+│   └── detect/
+│       └── train/
+│           ├── weights/
+│           ├── results.csv
+│           └── config.json
+│
+├── scripts/                           # Utility scripts (Phase 2+)
+├── tests/                             # Unit tests (Phase 6)
+├── legacy/                            # Kept for reference
+│   ├── conv.py
+│   ├── block.py
+│   └── head.py
+│
+└── gui.py                             # Original GUI (will update in Phase 5)
 ```
 
 ---

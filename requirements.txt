@@ -4,7 +4,6 @@
 # Core ML/DL
 torch==2.0.1
 torchvision==0.15.2
-torchaudio==2.0.2
 
 # Object Detection
 ultralytics==8.0.147
@@ -13,10 +12,6 @@ ultralytics==8.0.147
 opencv-python==4.8.0.76
 Pillow==10.0.0
 numpy==1.24.3
-
-# GUI
-ttkthemes==3.2.2
-tkinter-tools==0.0.1
 
 # Data & Utilities
 pyyaml==6.0
