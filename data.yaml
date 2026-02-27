@@ -1,6 +1,21 @@
-train: C:\Users\aravi\PycharmProjects\brain_tumor\train
-val: C:\Users\aravi\PycharmProjects\brain_tumor\valid
-test: C:\Users\aravi\PycharmProjects\brain_tumor\test\images
+# Brain Tumor Detection Dataset Configuration
+# Paths are relative to this file location
+# Ensure dataset structure:
+#   data/
+#   ├── train/
+#   │   ├── images/
+#   │   └── labels/
+#   ├── val/
+#   │   ├── images/
+#   │   └── labels/
+#   └── test/
+#       ├── images/
+#       └── labels/
+
+path: ../data
+train: images/train
+val: images/val
+test: images/test
 
 nc: 1
 names: ['tumor']
