@@ -49,7 +49,8 @@ env/
 *.pkl
 *.pickle
 runs/
-models/!models/*.md
+models/
+!models/README.md
 outputs/
 predictions/
 
