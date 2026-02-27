@@ -9,6 +9,7 @@ import cv2
 from pathlib import Path
 import sys
 import os
+import tempfile
 
 sys.path.insert(0, str(Path(__file__).parent))
 
@@ -23,7 +24,7 @@ st.markdown("---")
 # Sidebar
 with st.sidebar:
     st.header("⚙️ Model Configuration")
-    model_path = st.text_input("Model path", value="runs/detect/train/weights/best.pt")
+    model_path = st.text_input("Model path", value="runs/detect/runs/detect/train_custom/weights/best.pt")
     confidence = st.slider("Confidence threshold", 0.0, 1.0, 0.5)
 
 # Main content
@@ -43,8 +44,10 @@ with col2:
     st.subheader("🔍 Detection Results")
     
     if uploaded_file:
-        # Save temp file for prediction
-        temp_path = "/tmp/temp_mri.jpg"
+        # Save temp file for prediction (cross-platform)
+        temp_dir = tempfile.gettempdir()
+        temp_path = os.path.join(temp_dir, "streamlit_mri_temp.jpg")
+        
         with open(temp_path, 'wb') as f:
             f.write(uploaded_file.getbuffer())
         
@@ -62,21 +65,32 @@ with col2:
             st.metric("Number of Detections", result['num_detections'])
             
             if result['num_detections'] > 0:
-                st.subheader("📍 Detected Bounding Boxes")
+                st.subheader("📍 Detected Objects")
                 for i, detection in enumerate(result['detections'], 1):
                     col_bbox, col_conf = st.columns(2)
                     with col_bbox:
                         st.write(f"**Detection {i}**")
-                        st.text(f"BBox: {[round(x.item(), 2) for x in detection['bbox']]}")
+                        bbox = detection['bbox']
+                        st.text(f"BBox: x1={bbox[0]:.1f}, y1={bbox[1]:.1f}, x2={bbox[2]:.1f}, y2={bbox[3]:.1f}")
                     with col_conf:
                         st.metric(f"Confidence", f"{detection['confidence']:.4f}")
+            else:
+                st.info("""
+                ℹ️ **No objects detected**
+                
+                The model is ready to use! For better tumor detection accuracy:
+                1. Train a custom YOLOv8 model on annotated brain tumor data
+                2. Place the trained weights at `runs/detect/train/weights/best.pt`
+                3. Update the model path in the Configuration sidebar
+                """)
             
             # Raw results
-            st.subheader("📋 Raw Detection Data")
+            st.subheader("📋 Detection Details")
             st.json({
-                "image": result['image_path'],
+                "model": model_path,
+                "confidence_threshold": confidence,
                 "num_detections": result['num_detections'],
-                "detections_count": len(result['detections'])
+                "image_path": os.path.basename(result['image_path'])
             })
             
         except Exception as e:
@@ -92,8 +106,14 @@ st.markdown("---")
 st.markdown("""
 ### 📚 Model Information
 - **Algorithm:** YOLOv8 Nano (Real-time Object Detection)
-- **Class:** Brain Tumor (1-class detection)
-- **Input:** 640×640 MRI images
+- **Input Resolution:** 640×640 pixels
 - **Framework:** Ultralytics YOLOv8
 - **Model Size:** 6.3 MB (CPU/GPU compatible)
+
+### 🚀 Getting Started
+This demo uses a general YOLOv8 model. To detect brain tumors:
+1. Prepare annotated MRI images in YOLO format
+2. Run: `python -m src.bt_yolo.train --data data/data.yaml --epochs 50`
+3. Wait for training to complete (creates `runs/detect/train/weights/best.pt`)
+4. Update the model path in Configuration sidebar
 """)

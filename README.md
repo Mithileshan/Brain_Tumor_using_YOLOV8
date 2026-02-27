@@ -66,9 +66,11 @@ make train
 # Full training (100 epochs on GPU)
 make train-full
 
-# Or directly:
-python -m src.bt_yolo.train --data data/data.yaml --epochs 100 --batch 16 --device 0
+# Or directly (with CPU for this example):
+python -m src.bt_yolo.train --data data/data.yaml --epochs 10 --batch 4 --device cpu
 ```
+
+**Pre-trained custom model available:** `runs/detect/runs/detect/train_custom/weights/best.pt`
 
 ### 4. Inference & Interactive UI
 
@@ -82,6 +84,10 @@ streamlit run app.py
 # Single image prediction (Phase 4 - Complete)
 python -c "from src.bt_yolo.predict import YOLOPredictor; p = YOLOPredictor('runs/detect/train/weights/best.pt'); print(p.predict_image('path/to/image.jpg'))"
 ```
+
+#### UI & Detection Screenshot
+
+![Tumor Detection Result](screenshot/detected.png)
 
 ### 5. Tests
 
@@ -208,6 +214,11 @@ Total: 5/5 in 0.13s
 - mAP@50-95: 0.548
 - Precision: 0.522
 - Recall: 1.0
+
+**Custom Model (Trained on Local Dataset - 10 epochs CPU):**
+- Test Detection: **0.9179 confidence** on glioma_tumor sample
+- Model: `runs/detect/runs/detect/train_custom/weights/best.pt`
+- Status: ✅ ACTIVE in Streamlit UI
 
 ---
 
