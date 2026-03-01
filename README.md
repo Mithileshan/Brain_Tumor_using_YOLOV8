@@ -1,22 +1,11 @@
 ﻿# Brain Tumor Detection using YOLOv8
 
-**Production-ready object detection model for brain tumor identification in MRI images.**
-
 ---
 
 ## Overview
 
 This project implements **YOLOv8 Nano** for brain tumor detection in MRI scans:
-- ✓ Single-class detection (tumor localization)
-- ✓ Real-time inference
-- ✓ Production-ready CLI & modules
-- ✓ Portable, reproducible setup
-- ✓ Pre-trained YOLOv8n weights (auto-downloaded)
-- ✓ Streamlit interactive UI
-- ✓ Full test coverage (5/5 passing)
-- ✓ Docker containerization & CI/CD
 
-**Status:** PRODUCTION READY - Phases 1-8 Complete
 **Model:** YOLOv8 Nano (6.3 MB)  
 **Class:** 1 (tumor)  
 **Framework:** PyTorch + Ultralytics  
@@ -24,7 +13,7 @@ This project implements **YOLOv8 Nano** for brain tumor detection in MRI scans:
 
 ---
 
-## Quick Start (All Phases Implemented)
+## Quick Start 
 
 ### 1. Install
 
@@ -105,52 +94,6 @@ docker run -p 8501:8501 brain-tumor-yolo:latest streamlit run app.py
 
 ---
 
-## Project Structure (All Phases Complete)
-
-```
-.
-├── README.md
-├── requirements.txt
-├── Makefile
-├── data.yaml
-├── MODEL_CARD.md (Phase 3)
-├── app.py (Phase 5)
-├── Dockerfile (Phase 7)
-├── .github/workflows/ci.yml (Phase 8)
-│
-├── data/
-│   ├── train/
-│   │   ├── images/
-│   │   └── labels/
-│   ├── val/
-│   │   ├── images/
-│   │   └── labels/
-│   └── test/
-│
-├── src/bt_yolo/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── train.py
-│   ├── eval.py
-│   └── predict.py
-│
-├── runs/
-│   └── detect/
-│       └── train/
-│           ├── weights/
-│           │   ├── best.pt
-│           │   └── last.pt
-│           ├── results.csv
-│           └── config.json
-│
-├── tests/
-│   └── test_yolo.py (5 tests - all passing)
-│
-└── legacy/
-    └── Original GUI files
-```
-
----
 
 ## Configuration
 
@@ -188,27 +131,6 @@ Key hyperparameters in src/bt_yolo/config.py:
 
 ---
 
-## Implementation Status - ALL PHASES COMPLETE
-
-| Phase | Component | Status |
-|-------|-----------|--------|
-| 1 | Foundation (CLI, structure, .gitignore) | COMPLETE |
-| 2 | Evaluation (mAP, metrics) | COMPLETE |
-| 3 | Model Cards (documentation) | COMPLETE |
-| 4 | Versioning (runs/ structure) | COMPLETE |
-| 5 | Streamlit UI (interactive demo) | COMPLETE |
-| 6 | Tests & Linting (5/5 passing) | COMPLETE |
-| 7 | Docker Containerization | COMPLETE |
-| 8 | GitHub Actions CI/CD | COMPLETE |
-
-**Test Results:**
-- test_config_creation: PASSED
-- test_config_dict: PASSED
-- test_config_validation_epochs: PASSED
-- test_config_validation_imgsz: PASSED
-- test_config_valid_imgsz: PASSED
-Total: 5/5 in 0.13s
-
 **Training Results (Smoke Test 2 epochs):**
 - mAP@50: 0.879
 - mAP@50-95: 0.548
@@ -218,7 +140,7 @@ Total: 5/5 in 0.13s
 **Custom Model (Trained on Local Dataset - 10 epochs CPU):**
 - Test Detection: **0.9179 confidence** on glioma_tumor sample
 - Model: `runs/detect/runs/detect/train_custom/weights/best.pt`
-- Status: ✅ ACTIVE in Streamlit UI
+- Status:  ACTIVE in Streamlit UI
 
 ---
 
@@ -231,42 +153,6 @@ pytest tests/ -v
 ```
 
 ---
-
-## References
-
-- Ultralytics YOLO: https://docs.ultralytics.com/
-- YOLOv8 GitHub: https://github.com/ultralytics/ultralytics
-- YOLO Format: https://docs.ultralytics.com/datasets/detect/
-- MODEL_CARD.md for detailed model documentation
-
----
-
-## License
-
-MIT License
-
----
-
-## Contributing
-
-1. Fork the repo
-2. Create feature branch
-3. Add tests for new features
-4. Maintain code quality (black, flake8)
-5. Submit Pull Request
-
----
-
-## Support
-
-For issues:
-1. Check GitHub Issues
-2. Verify YOLO dataset format
-3. Provide environment info: python --version, torch.__version__
-4. Check MODEL_CARD.md for known limitations
-
----
-
 ## Limitations & Safety
 
 - NOT FDA-approved. Research-only, not for diagnosis.
@@ -284,7 +170,3 @@ For issues:
 - ONNX export for cross-platform deployment
 - Real-time video inference
 
----
-
-Last Updated: Feb 27, 2026
-Status: PRODUCTION READY - Phases 1-8 Complete | Tests: 5/5 PASSED | mAP50: 0.879 | mAP50-95: 0.548
